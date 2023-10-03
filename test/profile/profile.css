@@ -1,0 +1,64 @@
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.profile,.password-change{
+    background-color:#f2f2f2;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px auto;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+label{
+    display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Style for form input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style for form submit button */
+input[type="submit"] {
+  background-color: #604fa4;
+  color: white;
+  margin-top: 4px;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+text-align: center;
+}
+.btnspan{
+  display:flex ;justify-content :center;
+}
+
+input[type="submit"]:hover {
+  background-color: #769fb8;
+}
+
+/* Style for form error messages */
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+/* Style for form success messages */
+.success-message {
+  color: green;
+  margin-top: 5px;
+}
