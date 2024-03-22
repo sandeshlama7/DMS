@@ -8,6 +8,7 @@ $sql = "select * from Members";
 $result = mysqli_query($con, $sql);
 ?>
 
+<div class="mt-3"><h3 class="text-center" >Members</h3></div>
 <div  class="m-3" >
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMember">
@@ -262,7 +263,7 @@ form.addEventListener("submit", function (event) {
 
 <!-- xxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
-<div class="container pt-2">
+<div class="m-3 pt-2">
     <table id="myTable" class="table table-striped table-bordered table-responsive">
         <thead>
             <tr>

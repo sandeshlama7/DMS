@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     // Perform registration process
-    header('location: createAccount.php');
+    header('location: ./createAccount.php');
     // Set session variables or redirect to a success page
   }
   else{
@@ -93,9 +93,9 @@ function test_input($data)
 <html lang="en">
 
 <head>
-  <!-- <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"> -->
-  <!-- <meta charset="utf-8"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="LoginSignUp/style.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
@@ -141,7 +141,11 @@ function test_input($data)
     </div>
 
     <div class="container a-container" id="a-container">
-      <form class="form" id="a-form" action="verify.php" method="POST">
+      <form class="form" id="a-form" action="LoginSignup/verify.php" method="POST">
+        <h4 class="text-danger"><?php if(isset($_SESSION['loginErr'])){
+          echo $_SESSION["loginErr"];
+          unset($_SESSION['loginErr']);
+        }  ?></h4>
         <h2 class="form_title title">Sign in to Website</h2>
         <span>
               <?php if(isset($_SESSION['info'])){echo $_SESSION['info']; unset($_SESSION['info']);} ?>
@@ -156,7 +160,7 @@ function test_input($data)
       <div class="switch__circle"></div>
       <div class="switch__circle switch__circle--t"></div>
       <div class="switch__container " id="switch-c2">
-        <h2 class="switch__title title">Hello Saau !</h2>
+        <h2 class="switch__title title">Hello!</h2>
         <p class="switch__description description">Enter your dairy details and create an account</p>
         <button class="switch__button button switch-btn">SIGN UP</button>
       </div>
@@ -168,6 +172,7 @@ function test_input($data)
       </div>
     </div>
   </div>
+  <script src="LoginSignup/index.js"></script>
   <script src="index.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {

@@ -20,14 +20,14 @@ if($checkRes){
     $count = mysqli_num_rows($checkRes);
     if($count>=1){
         $_SESSION['info'] = "Cannot Create Account. Admin account already exists!!";
-        header('Location: index.php');
+        header('Location: ../../dms');
     }
     else{$sql = "INSERT INTO `User` (`userId`, `name`, `address`, `contact`, `email`, `password`) VALUES (NULL,'$name','$address','$contact','$email','$pass') ";
         $res = mysqli_query($con, $sql);
 
         if ($res) {
             $_SESSION['info'] = 'Account Successfully Created';
-            header('Location: index.php');
+            header('Location: ../../dms');
             exit(); // Add exit() here
         } else {
             echo '<script> alert("Error");</script>';

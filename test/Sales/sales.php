@@ -7,7 +7,7 @@
     $result = mysqli_query($con,$sql);
 ?>
 
-<h2 class="m-2 text-center">Sales Record</h2>
+<h2 class="mt-3 text-center">Sales Record</h2>
 <div class="m-3 pt-2">
 <table id="myTable" class="table table-bordered table-striped">
 

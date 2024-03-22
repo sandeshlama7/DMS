@@ -66,7 +66,7 @@ document.querySelector('.bill-btn').addEventListener('click', function() {
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top navbar-inverse" role="navigation">
 
-            <a href="../home/home.php" class="navbar-brand"> Mero Dairy </a>
+            <span class="p-2" ><a href="../home/home.php" class="navbar-brand"> Mero Dairy </a></span>
          <div class="navbar-custom-menu">
            <ul class="nav navbar-right top-nav">
             <span>Dhulikhel Dairy Farm</span>
@@ -128,7 +128,7 @@ document.querySelector('.bill-btn').addEventListener('click', function() {
       success: function(response) {
         // Handle the response from the PHP script
         console.log(response);
-        window.location.href = '../LoginSignUp/index.php';
+        window.location.href = '../';
       },
       error: function(xhr, status, error) {
         // Handle any errors that occur during the AJAX request

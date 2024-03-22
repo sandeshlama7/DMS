@@ -104,7 +104,7 @@
 </div>
 <!-- xxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
-
+<div class="mt-3" ><h3 class="text-center">Invoice Record</h3></div>
 <div class="m-3 pt-2">
 <table id="myTable" class="table table-bordered table-striped">
 
@@ -134,8 +134,8 @@
             <?php if ($row['Status'] == 'pending'){?>
             <button type="button" class="btn btn-sm btn-danger edit">Paid</button>
             <?php } ?>
-            <!-- <button type="button" class="btn btn-sm btn-danger delete">Delete</button> -->
             <button type="button" class="btn btn-sm btn-info details" ><i class="fas fa-info-circle"></i></button>
+            <button type="button" class="btn btn-sm btn-danger pdf"><i class="fas fa-file-pdf" ></i></button>
             </td>
  <?php  } } ?>
 </tbody>
@@ -210,16 +210,11 @@
     return isValid;
         }
 
-        $('#myTable').on('click', '.delete', function () {
-            $('#deleteModal').modal('show');
+        $('#myTable').on('click', '.pdf', function () {
+            var id = $(this).closest('tr').find('td:eq(0)').text();
+    // Open pdf.php in a new tab and pass the ID as a query parameter
+    window.open('pdf.php?id=' + id, '_blank');
 
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function() {
-                return $(this).text().trim();
-            }).get();
-
-
-            $('#deleteid').val(data[0]);
         });
 
         $('#myTable').on('click', '.details', function(){

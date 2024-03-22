@@ -122,6 +122,11 @@ $(document).ready(function(){
     var passErr = document.getElementById("passErr");
   passErr.innerText = parsedResponse.message;
 
+  if(parsedResponse.message == "Password changed successfully"){
+    $('#currentPassword').val('');
+    $('#newPassword').val('');
+    $('#confirmPassword').val('');
+  }
         // You can display a success message to the user or perform any other necessary actions
       },
       error: function(xhr, status, error) {

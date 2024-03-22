@@ -87,7 +87,7 @@ function calculateCost() {
     }
     function validateFat(){
         var fat = document.getElementById('fat').value;
-        if(fat >0 && fat <=10){
+        if(fat >0.0 && fat <=10.0){
             return true;
         }
         else{
@@ -101,12 +101,12 @@ function calculateCost() {
             alert("Quantity should be higher than 0");
             return false;
         }
+        return true;
     }
     </script>
 <script>
 
 document.getElementById("myForm").addEventListener("submit", function(e) {
-
     if(!validateFat() || !validateQuantity()){
         e.preventDefault();
     }

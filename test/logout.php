@@ -8,4 +8,5 @@ unset($_SESSION['loggedin']);
 // Return a response back to the JavaScript
 $response = 'Logout successful!';
 echo $response;
+
 ?>

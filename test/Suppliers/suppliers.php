@@ -6,7 +6,9 @@ include('../connect.php');
     $sql = "select * from Suppliers";
     $result = mysqli_query($con,$sql);
 ?>
-<div class="m-3">
+<div class="mt-3" ><h3 class="text-center">Suppliers</h3></div>
+
+<div class="m-2">
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSupplier">
     Add Supplier</button>
@@ -276,7 +278,7 @@ form.addEventListener("submit", function (event) {
 </div>
 
 <!-- xxXXXxxx -->
-        <div class="container pt-2">
+        <div class="m-3 pt-2">
             <table id="myTable" class="table table-striped table-bordered">
             <thead>
                 <tr>

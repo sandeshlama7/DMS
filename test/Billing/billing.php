@@ -44,8 +44,8 @@ include('../connect.php');
             <thead>
                 <tr>
                     <th><button type="button" id="addnewRow" class="btn btn-sm btn-secondary ">+</button> Item</th>
-                    <th> Quantity</th>
-                    <th>Price(Rs.)</th>
+                    <th>Quantity</th>
+                    <th>Unit Price(Rs.)</th>
                     <th>Sub-Total</th>
                 </tr>
             </thead>
@@ -110,7 +110,7 @@ include('../connect.php');
         </div>
 
         <div class="col-xs-6 mt-2 btn-group">
-            <input type="submit" name="createInvoice" class="btn btn-success float-right" value="Create Invoice"
+            <input id="createInvoice" type="submit" name="createInvoice" class="btn btn-success float-right" value="Create Invoice"
                 data-loading-text="Creating...">
         </div>
 
@@ -368,5 +368,15 @@ function calculateTotal1() {
     }
 document.getElementById('invoice_subtotal').value =  sum.toFixed(2);
     }
+
+    </script>
+
+<script>
+    $('document').ready(function(){
+        $('#createInvoice').click(function(e){
+            // e.preventDefault();
+
+        });
+    });
 
     </script>

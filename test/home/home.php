@@ -9,10 +9,110 @@ include('../connect.php')
     $result = mysqli_query($con, $sql);
 ?>
 
-    <div class="container pt-5">
+<script>
+        function updateTime() {
+            var date = new Date();
+            var time = date.toLocaleTimeString();
+            var currentDate = date.toISOString().slice(0,10);
+
+            document.getElementById("current-date").innerHTML = currentDate;
+            document.getElementById("current-time").innerHTML = time;
+        }
+        setInterval(updateTime, 1000); // Update every second (1000 milliseconds)
+    </script>
+
+<style>
+    /* Custom CSS for the boxes */
+    .custom-box {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+        margin-bottom: 15px;
+        background: linear-gradient(to bottom, #cccccc, #999999); /* Gradient background */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    }
+</style>
+
+<div class="m-2 mb-4">
+  <span class="m-2" id="current-date"><?php echo date("Y-m-d");?></span> <span id="current-time"><?php echo date("H:i:s a"); ?></span>
+</div>
+
+<div class="container m-2">
+
+  <div class="row justify-content-between">
+    <div style="max-width: 30%;" class="col-md-4 mb-3" >
+      <div class="border border-black p-3 custom-box">
+        <?php
+          $res = mysqli_query($con, "SELECT * FROM Members");
+          $member = mysqli_num_rows($res);
+          echo $member;
+        ?>
+        <h4>Members</h4>
+      </div>
+    </div>
+    <div style="max-width: 30%;" class="col-md-4 mb-3 ">
+      <div class="border border-black p-3 custom-box">
+        <?php
+          $res = mysqli_query($con, "SELECT * FROM Suppliers");
+          $supplier = mysqli_num_rows($res);
+          echo $supplier;
+        ?>
+        <h4>Suppliers</h4>
+      </div>
+    </div>
+    <div style="max-width: 30%;" class="col-md-4 mb-3 ">
+      <div class="border border-black p-3 custom-box">
+      <span class="p-1">Rs.</span>  <?php
+          $res = mysqli_query($con, "SELECT SUM(Receivables) FROM Members");
+          $row = mysqli_fetch_row($res);
+          echo $row[0];
+        ?>
+        <h4>Receivables</h4>
+      </div>
+    </div>
+    <div style="max-width: 30%;" class="col-md-4 mb-3 ">
+      <div class="border border-black p-3 custom-box">
+      <span class="p-1" >Rs.</span> <?php
+          $res = mysqli_query($con, "SELECT SUM(Payables) FROM Suppliers");
+          $row = mysqli_fetch_row($res);
+          echo $row[0];
+        ?>
+        <h4>Payables</h4>
+      </div>
+    </div>
+
+    <div style="max-width: 30%;" class="col-md-4 mb-3 ">
+      <div class="border border-black p-3 custom-box">
+        <?php
+          $res = mysqli_query($con, "SELECT * FROM Invoices WHERE Status ='pending'");
+          $member = mysqli_num_rows($res);
+          echo $member;
+        ?>
+        <h4>Pending Bills</h4>
+      </div>
+    </div>
+
+    <div style="max-width: 30%;" class="col-md-4 mb-3 ">
+      <div class="border border-black p-3 custom-box">
+        <span class="p-1" >Rs.</span><?php
+          $res = mysqli_query($con, "SELECT SUM(SubTotal) FROM Sales WHERE date = '". date('Y-m-d') . "'");
+
+          $row = mysqli_fetch_row($res);
+          if($row[0] !== null && $row[0] !== ""){
+          echo $row[0];
+          }else {echo "0";}
+        ?>
+        <h4>Today's Sales</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container m-2 text-center">
         <h2 class="m-1" style="display:inline;">Price List</h2>
         <button class="btn btn-primary mb-2" id="editBtn" >Edit PriceList</button>
-        <table id="priceTable" class="table table-striped table-bordered " style="width: 40%">
+        <table id="priceTable" class="table table-striped table-bordered mx-auto" style="width: 40%">
     <thead>
         <tr>
             <th>Product</th>
@@ -40,7 +140,10 @@ include('../connect.php')
 </tbody>
 </table>
 </div>
-</div>
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="editModal">
@@ -86,7 +189,7 @@ include('../connect.php')
   </div>
 </div>
 
-// Add item modal
+<!-- Add item modal -->
 <div class="modal fade" id="addModal">
 
   <div class="modal-dialog">
@@ -106,7 +209,7 @@ include('../connect.php')
       </div>
 
       <div class="modal-footer">
-
+          <span class="text-danger" id="already" ></span>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="addConfirm" >Confirm</button>
 
@@ -197,7 +300,6 @@ $(document).ready(function(){
 
 // Add item
 $('#addBtn').click(function(){
-  console.log("HEl");
   $('#addModal').modal('show');
 });
 
@@ -224,6 +326,8 @@ $.ajax({
       });
       }
           else{
+            console.log(document.getElementById('already'));
+            document.getElementById('already').innerText= response;
         console.log(response);
     }
   }

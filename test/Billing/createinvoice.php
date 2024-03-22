@@ -33,6 +33,8 @@ if (isset($_POST['createInvoice'])) {
     $invoice_discount = $_POST['invoice_discount'];
     $invoice_total = $_POST['invoice_total'];
     $status = $_POST['status'];
+    $address = $_POST['customer_address'];
+    $contact = $_POST['customer_phone'];
 
     if($status === "pending"){
     $recsql = "UPDATE Members SET Receivables = Receivables + '$invoice_total' WHERE Name = '$customer'";
@@ -42,11 +44,17 @@ if (isset($_POST['createInvoice'])) {
         $pendingAmt = 0;
     }
 
-    $sql1 = "INSERT INTO `Invoices` ( `Date`, `Customer`, `SubTotal`, `Discount`, `Total`, `Status`, `PendingAmount`) VALUES ('$date', '$customer', '$invoice_subtotal', '$invoice_discount', '$invoice_total', '$status', '$pendingAmt')";
+    $sql1 = "INSERT INTO `Invoices` ( `Date`, `Customer`, `SubTotal`, `Discount`, `Total`, `Status`, `PendingAmount`,`Address`,`Contact`) VALUES ('$date', '$customer', '$invoice_subtotal', '$invoice_discount', '$invoice_total', '$status', '$pendingAmt','$address','$contact')";
     $res = mysqli_query($con, $sql1);
 
     if($res){
-        header('location:billing.php');
+        echo "<script>window.open('generatePdf.php', '_blank');</script>";
+        echo '<script>window.location.href = "billing.php";</script>';
+
+        // header('location: billing.php');
+
+
+        // echo $invoiceIdItem;
     }
    else{
     echo "Error";

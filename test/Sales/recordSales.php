@@ -34,7 +34,7 @@ include('../connect.php');
                 $result = mysqli_query($con, $sql);
                 ?>
                 <tr>
-                    <td><select name="item[]" id="itemSelect"  required>
+                    <td><select name="item[]" id="itemSelect" class="itemSelect"  required>
                             <option disabled selected value> -- Select an Item -- </option>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
@@ -45,7 +45,8 @@ include('../connect.php');
                         </select></td>
                     <td>
                         <input type="number" id="quantity" class="quantity form-control" name="quantity[]" value="1"
-                            oninput="calculateTotal()" onchange="calculateTotal()">
+                            oninput="checkInv(this),calculateTotal()" onchange="checkInv(this),calculateTotal()">
+
                     </td>
                     <td>
                         <input type="number" id="priceSelect" class="priceSelect form-control required" name="Price[]" value="0.00"
@@ -62,8 +63,8 @@ include('../connect.php');
 
 
         <div class="col-xs-6 mt-2 btn-group">
-            <input type="submit" name="createSale" class="btn btn-success float-right" value="Record Sale"
-                data-loading-text="Creating...">
+            <input type="submit" id="saleRecord" name="createSale" class="btn btn-success float-right" value="Record Sale"
+                data-loading-text="Creating..."><span class="text-danger " id="quantityErr"></span>
         </div>
 
     </form>
@@ -106,6 +107,37 @@ include('../connect.php');
             document.getElementById('sub-total').value = '';
         }
     }
+
+    function checkInv(quantityElement) {
+    var row = $(quantityElement).closest('tr');
+    var itemSelect = row.find('.itemSelect');
+    var item = itemSelect.find('option:selected').val();
+
+    var selected = quantityElement.value;
+
+    $.ajax({
+        url: 'checkInventory.php',
+        type: 'POST',
+        data: { item: item, quantity: selected },
+        success: function (response) {
+            var quantityErrElement = document.getElementById('quantityErr');
+            if (response =="Quantity exceeds inventory level") {
+
+                quantityErrElement.innerText = response;
+                $('#saleRecord').prop('disabled', true);
+            } else {
+                console.log(response);
+                quantityErrElement.innerText = ''; // Clear the error message
+                $('#saleRecord').prop('disabled', false); // Enable the submit button
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+
 
 
 </script>

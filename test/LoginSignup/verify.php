@@ -35,20 +35,20 @@ if(isset($_POST['login'])){
                 exit;
             } else {
                 // Display error message
-                $errorMessage = "Wrong password";
+                $errorMessage = "Wrong password!!";
             }
         } else {
             // Display error message
-            $errorMessage = "Wrong email";
+            $errorMessage = "Wrong email!!";
         }
 
         $stmt->close();
-        echo $errorMessage;
+        $_SESSION['loginErr'] = $errorMessage;
     }
 
     // Close the database connection
     $con->close();
-    // header('location: index.php');
+    header('location: ../../dms');
 
 
 ?>
